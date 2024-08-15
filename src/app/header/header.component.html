@@ -1,6 +1,16 @@
 <nav>
-  <a routerLink="/about">About</a>
-  <a routerLink="/experience">Experience</a>
-  <a routerLink="/education">Education</a>
-  <a routerLink="/skills">Skills</a>
+  <ul ngbNav #nav="ngbNav">
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/about">About</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/experience">Experience</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/education">Education</a>
+    </li>
+    <li ngbNavItem>
+      <a ngbNavLink routerLink="/skills">Skills</a>
+    </li>
+  </ul>
 </nav>
