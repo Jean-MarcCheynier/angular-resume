@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-skills',
   standalone: true,
   imports: [],
-  templateUrl: './skills.component.html',
-  styleUrl: './skills.component.scss'
+  templateUrl: './skill.component.html',
+  styleUrl: './skill.component.scss',
 })
-export class SkillsComponent {
-
-}
+export class SkillsComponent {}
