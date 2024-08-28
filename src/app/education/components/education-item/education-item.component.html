@@ -1,21 +1,27 @@
-<div class="conainer-xl">
-  <div class="row">
-    <div class="col-12">
-      <img src="{{ item.imageUrl }}" class="rounded img-thumbnail" alt="..." />
-      <span i18n>{{ item.degree }}</span>
-    </div>
-    <div class="col-12">{{ item.startDate }} - {{ item.startDate }}</div>
-    <div class="col-12">
-      <span i18n>{{ item.institution | translate }}</span>
-    </div>
-    <div class="col-12">
-      <span i18n>{{ item.fieldOfStudy }}</span>
-    </div>
+<div *ngIf="item">
+  <div class="conainer-xl">
+    <div class="row">
+      <div class="col-12">
+        <img
+          src="{{ item.imageUrl }}"
+          class="rounded img-thumbnail"
+          alt="..."
+        />
+        <span i18n>{{ item.degree.name }}</span>
+      </div>
+      <div class="col-12">{{ item.startDate }} - {{ item.startDate }}</div>
+      <div class="col-12">
+        <span i18n>{{ item.institution | translate }}</span>
+      </div>
+      <div class="col-12">
+        <span i18n>{{ item.fieldOfStudy }}</span>
+      </div>
 
-    <div class="col-12">
-      <p>
-        <span i18n>{{ item.description | translate }}</span>
-      </p>
+      <div class="col-12">
+        <p>
+          <span i18n>{{ item.description | translate }}</span>
+        </p>
+      </div>
     </div>
   </div>
 </div>

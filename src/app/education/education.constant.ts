@@ -1,9 +1,9 @@
-import { EducationItem } from './education.model';
+import { DegreeType, EducationItem } from './education.model';
 
 export const EDUCATION_ITEMS: EducationItem[] = [
   {
     institution: 'education.master.institution',
-    degree: 'education.master.degree',
+    degree: { type: DegreeType.MASTERS, name: 'education.master.degree' },
     fieldOfStudy: 'education.master.fieldOfStudy',
     startDate: '2011-09-01',
     endDate: '2014-09-01',
@@ -12,7 +12,7 @@ export const EDUCATION_ITEMS: EducationItem[] = [
   },
   {
     institution: 'education.bachelor.institution',
-    degree: 'education.bachelor.degree',
+    degree: { type: DegreeType.BACHELORS, name: 'education.bachelor.degree' },
     fieldOfStudy: 'education.bachelor.fieldOfStudy',
     startDate: '2009-09-01',
     endDate: '2011-09-01',
@@ -21,7 +21,10 @@ export const EDUCATION_ITEMS: EducationItem[] = [
   },
   {
     institution: 'education.baccalaureate.institution',
-    degree: 'education.baccalaureate.degree',
+    degree: {
+      type: DegreeType.BACCALAUREATE,
+      name: 'education.baccalaureate.degree',
+    },
     fieldOfStudy: 'education.baccalaureate.fieldOfStudy',
     startDate: '2009-09-01',
     endDate: '2011-09-01',

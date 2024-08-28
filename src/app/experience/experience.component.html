@@ -1,1 +1,10 @@
 <p>experience works!</p>
+<div *ngFor="let experience of experienceList">
+  <div class="card">
+    <div class="card-body" (click)="experience.toggleSelect()">
+      <h5 class="card-title" [class.coucou]="experience.selected">
+        {{ experience.value.title }}
+      </h5>
+    </div>
+  </div>
+</div>
