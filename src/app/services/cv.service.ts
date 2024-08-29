@@ -1,47 +1,111 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Experience } from '../experience/experience.model';
 import { EXPERIENCE_ITEMS } from '../experience/experience.constant';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Skill } from '../skill/skill.model';
+import { SKILL_ITEMS } from '../skill/skill.constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CvService {
-  private _experienceList: BehaviorSubject<SelectableItem<Experience>[]> =
-    new BehaviorSubject<SelectableItem<Experience>[]>([]);
+  private _experienceList: Experience[] = [];
+  private _skillList: Skill[] = [];
 
   constructor() {
     //fetch data from the server
+    this.fetchSkillList();
     this.fetchExperienceList();
   }
 
-  private fetchExperienceList() {
-    const selectableExperienceList = [];
-    for (const xp of EXPERIENCE_ITEMS) {
-      const selectableExperience = new SelectableItem(Experience.create(xp));
-      selectableExperienceList.push(selectableExperience);
+  private fetchSkillList() {
+    const selectableSkillList = [];
+    for (const skill of SKILL_ITEMS) {
+      const selectableSkill = new Skill(skill);
+      selectableSkillList.push(selectableSkill);
     }
-    this._experienceList.next(selectableExperienceList);
+    this._skillList = selectableSkillList;
+  }
+
+  private fetchExperienceList() {
+    const experienceList: Experience[] = [];
+
+    for (const { skillSlugList, ...rest } of EXPERIENCE_ITEMS) {
+      const skillList = this.getSkillsBySlugList(skillSlugList);
+      const experience = new Experience({ skillList, ...rest });
+
+      experienceList.push(experience);
+    }
+    this._experienceList = experienceList;
+  }
+
+  getSkillsBySlugList(slugList: string[]): Skill[] {
+    return this._skillList.filter((skill) => slugList.includes(skill.slug));
   }
 
   get experienceList() {
     return this._experienceList;
   }
+
+  get skillList() {
+    return this._skillList;
+  }
 }
 
-export class SelectableItem<T> {
-  private item: T;
-  private _selected: boolean = false;
-  constructor(public value: T) {
-    this.item = value;
-  }
+type Constructor<T = {}> = new (...args: any[]) => T;
 
-  get selected() {
-    return this._selected;
-  }
+interface ISelectable {
+  selected: boolean;
+  selectedChange: EventEmitter<boolean>;
+  observe: (selectable: ISelectable | ISelectable[]) => void;
 
-  toggleSelect() {
-    console.log('selected');
-    this._selected = !this._selected;
-  }
+  toggleSelect(): void;
+}
+
+export function Selectable<TBase extends Constructor>(
+  Base: TBase
+): TBase & Constructor<ISelectable> {
+  return class extends Base implements ISelectable {
+    private _selected: boolean = false;
+    selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    innerSelectable: ISelectable[] = [];
+
+    constructor(...args: any[]) {
+      super(...args);
+      this.innerSelectable = [];
+    }
+
+    get selected() {
+      return this._selected;
+    }
+
+    set selected(value: boolean) {
+      this._selected = value;
+      this.selectedChange.emit(this.selected);
+    }
+
+    toggleSelect() {
+      this.selected = !this.selected;
+    }
+
+    observe(selectable: ISelectable | ISelectable[]) {
+      if (!Array.isArray(selectable)) {
+        selectable = [selectable];
+      }
+
+      if (
+        Array.isArray(this.innerSelectable) &&
+        this.innerSelectable.length > 0
+      ) {
+        for (const item of this.innerSelectable) {
+          item.selectedChange.unsubscribe();
+        }
+      }
+      this.innerSelectable = [...selectable];
+      for (const item of this.innerSelectable) {
+        item.selectedChange.subscribe((selected: boolean) => {
+          this.selected = selected;
+        });
+      }
+    }
+  };
 }

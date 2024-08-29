@@ -1,139 +1,139 @@
-import { Proficiency, Skill } from './skill.model';
+import { ISkill, Proficiency } from './skill.model';
 
-export const SKILL_ITEMS: Skill[] = [
+export const SKILL_ITEMS: ISkill[] = [
   {
-    name: 'skill.angular.name',
+    slug: 'angular',
     proficiency: Proficiency.Advanced,
     description: 'skill.angular.description',
   },
   {
-    name: 'skill.react.name',
+    slug: 'react',
     proficiency: Proficiency.Advanced,
     description: 'skill.react.description',
   },
   {
-    name: 'skill.vue.name',
+    slug: 'vue',
     proficiency: Proficiency.Intermediate,
     description: 'skill.vue.description',
   },
   {
-    name: 'skill.javascript.name',
+    slug: 'javascript',
     proficiency: Proficiency.Advanced,
     description: 'skill.javascript.description',
   },
   {
-    name: 'skill.typescript.name',
+    slug: 'typescript',
     proficiency: Proficiency.Advanced,
     description: 'skill.typescript.description',
   },
 
   {
-    name: 'skill.html.name',
+    slug: 'html',
     proficiency: Proficiency.Advanced,
     description: 'skill.html.description',
   },
   {
-    name: 'skill.css.name',
+    slug: 'css',
     proficiency: Proficiency.Advanced,
     description: 'skill.css.description',
   },
   {
-    name: 'skill.sass.name',
+    slug: 'sass',
     proficiency: Proficiency.Advanced,
     description: 'skill.sass.description',
   },
   {
-    name: 'skill.webEngineering.name',
+    slug: 'webEngineering',
     proficiency: Proficiency.Advanced,
     description: 'skill.webEngineering.description',
   },
   {
-    name: 'skill.reactNative.name',
+    slug: 'reactNative',
     proficiency: Proficiency.Intermediate,
     description: 'skill.reactNative.description',
   },
   {
-    name: 'skill.nestJS.name',
+    slug: 'nestJS',
     proficiency: Proficiency.Intermediate,
     description: 'skill.nestJS.description',
   },
   {
-    name: 'skill.redux.name',
+    slug: 'redux',
     proficiency: Proficiency.Intermediate,
     description: 'skill.redux.description',
   },
   {
-    name: 'skill.springBoot.name',
+    slug: 'springBoot',
     proficiency: Proficiency.Intermediate,
     description: 'skill.springBoot.description',
   },
   {
-    name: 'skill.springMVC.name',
+    slug: 'springMVC',
     proficiency: Proficiency.Intermediate,
     description: 'skill.springMVC.description',
   },
   {
-    name: 'skill.bash.name',
+    slug: 'bash',
     proficiency: Proficiency.Intermediate,
     description: 'skill.bash.description',
   },
   {
-    name: 'skill.unix.name',
+    slug: 'unix',
     proficiency: Proficiency.Intermediate,
     description: 'skill.unix.description',
   },
   {
-    name: 'skill.git.name',
+    slug: 'git',
     proficiency: Proficiency.Intermediate,
     description: 'skill.git.description',
   },
   {
-    name: 'skill.sapCAI.name',
+    slug: 'sapCAI',
     proficiency: Proficiency.Intermediate,
     description: 'skill.sapCAI.description',
   },
   {
-    name: 'skill.jquery.name',
+    slug: 'jquery',
     proficiency: Proficiency.Intermediate,
     description: 'skill.jquery.description',
   },
   {
-    name: 'skill.ajax.name',
+    slug: 'ajax',
     proficiency: Proficiency.Intermediate,
     description: 'skill.ajax.description',
   },
   {
-    name: 'skill.JEE.name',
+    slug: 'JEE',
     proficiency: Proficiency.Intermediate,
     description: 'skill.JEE.description',
   },
   {
-    name: 'skill.java.name',
+    slug: 'java',
     proficiency: Proficiency.Intermediate,
     description: 'skill.java.description',
   },
   {
-    name: 'skill.OOP.name',
+    slug: 'OOP',
     proficiency: Proficiency.Intermediate,
     description: 'skill.OOP.description',
   },
   {
-    name: 'skill.SQL.name',
+    slug: 'SQL',
     proficiency: Proficiency.Intermediate,
     description: 'skill.SQL.description',
   },
   {
-    name: 'skill.mongoDB.name',
+    slug: 'mongoDB',
     proficiency: Proficiency.Intermediate,
     description: 'skill.mongoDB.description',
   },
   {
-    name: 'skill.python.name',
+    slug: 'python',
     proficiency: Proficiency.Intermediate,
     description: 'skill.python.description',
   },
   {
-    name: 'skill.socketIO.name',
+    slug: 'socketIO',
     proficiency: Proficiency.Intermediate,
     description: 'skill.socketIO.description',
   },

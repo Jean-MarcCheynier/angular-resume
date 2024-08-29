@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+import { Selectable } from '../services/cv.service';
 import { Skill } from '../skill/skill.model';
 
 export interface ExperienceConstructorProps {
@@ -17,7 +19,7 @@ export interface ExperienceConstructorProps {
   skillList: Skill[];
 }
 
-export class Experience {
+class BaseExperience {
   companyImageUrl: string;
   company: string;
   title: string;
@@ -28,43 +30,47 @@ export class Experience {
     city: string;
     country: string;
   };
-  private skillList: Skill[];
+  private _skillList: Skill[] = [];
+
+  get skilList(): Skill[] {
+    return this._skillList;
+  }
 
   // Setter
   set startDate(value: string) {
     this._startDate = new Date(value);
   }
 
+  set skillList(value: Skill[]) {
+    this._skillList = value;
+  }
+
   set endDate(value: string | undefined) {
     this._endDate = value ? new Date(value) : undefined;
   }
 
-  private constructor() {
-    this.companyImageUrl = '';
-    this.company = '';
-    this.title = '';
-    this.description = { en: '', fr: '' };
+  constructor(props: ExperienceConstructorProps) {
+    this.companyImageUrl = props.companyImageUrl;
+    this.company = props.company;
+    this.title = props.title;
+    this.startDate = props.startDate;
+    this.endDate = props.endDate;
+    this.description = props.description;
     this.location = {
-      city: '',
-      country: '',
-    };
-    this.skillList = [];
-  }
-
-  static create(props: ExperienceConstructorProps) {
-    const instance = new Experience();
-
-    instance.companyImageUrl = props.companyImageUrl;
-    instance.company = props.company;
-    instance.title = props.title;
-    instance.startDate = props.startDate;
-    instance.endDate = props.endDate;
-    instance.description = props.description;
-    instance.location = {
       city: props.location.city,
       country: props.location.country,
     };
-    instance.skillList = props.skillList;
-    return instance;
+    this.skillList = props.skillList;
+  }
+}
+
+export class Experience extends Selectable(BaseExperience) {
+  constructor(props: ExperienceConstructorProps) {
+    super(props);
+  }
+
+  override set skillList(value: Skill[]) {
+    super.skillList = value;
+    this.observe(value);
   }
 }

@@ -3,7 +3,8 @@
   <div class="card">
     <div class="card-body" (click)="experience.toggleSelect()">
       <h5 class="card-title" [class.coucou]="experience.selected">
-        {{ experience.value.title }}
+        {{ experience.title }} {{ experience.selected && "selected" }}
+        {{ experience.skillList | json }}
       </h5>
     </div>
   </div>

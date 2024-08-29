@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { CvService, SelectableItem } from '../services/cv.service';
+import { CvService } from '../services/cv.service';
 import { Experience } from './experience.model';
-import { NgFor } from '@angular/common';
+import { JsonPipe, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [NgFor],
+  imports: [NgFor, JsonPipe],
 
   templateUrl: './experience.component.html',
   styleUrl: './experience.component.scss',
 })
 export class ExperienceComponent {
-  experienceList: SelectableItem<Experience>[] = [];
+  experienceList: Experience[] = [];
 
   constructor(private cvService: CvService) {}
 
@@ -21,10 +21,6 @@ export class ExperienceComponent {
   }
 
   fetchExperienceList() {
-    this.cvService.experienceList.subscribe({
-      next: (value) => {
-        this.experienceList = value;
-      },
-    });
+    this.experienceList = this.cvService.experienceList;
   }
 }

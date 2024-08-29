@@ -1,9 +1,23 @@
 // src/app/experience.constants.ts
 
-import { SKILL_ITEMS } from '../skill/skill.constants';
-import { ExperienceConstructorProps } from './experience.model';
+type ExperienceItemData = {
+  companyImageUrl: string;
+  company: string;
+  title: string;
+  startDate: string;
+  endDate?: string;
+  description: {
+    en: string;
+    fr: string;
+  };
+  location: {
+    city: string;
+    country: string;
+  };
+  skillSlugList: string[];
+};
 
-export const EXPERIENCE_ITEMS: ExperienceConstructorProps[] = [
+export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
   {
     company: 'Company A',
     title: 'Software Engineer',
@@ -17,7 +31,7 @@ export const EXPERIENCE_ITEMS: ExperienceConstructorProps[] = [
       city: 'New York',
       country: 'USA',
     },
-    skillList: [SKILL_ITEMS[0], SKILL_ITEMS[1]], // Example skills
+    skillSlugList: ['angular'], // Example skills
     companyImageUrl: 'https://example.com/company-a-logo.png',
   },
   {
@@ -32,7 +46,7 @@ export const EXPERIENCE_ITEMS: ExperienceConstructorProps[] = [
       city: 'San Francisco',
       country: 'USA',
     },
-    skillList: [SKILL_ITEMS[2], SKILL_ITEMS[3]], // Example skills
+    skillSlugList: [], // Example skills
     companyImageUrl: 'https://example.com/company-b-logo.png',
   },
   {
@@ -48,7 +62,7 @@ export const EXPERIENCE_ITEMS: ExperienceConstructorProps[] = [
       city: 'Austin',
       country: 'USA',
     },
-    skillList: [SKILL_ITEMS[4], SKILL_ITEMS[5]], // Example skills
+    skillSlugList: [], // Example skills
     companyImageUrl: 'https://example.com/company-c-logo.png',
   },
 ];
