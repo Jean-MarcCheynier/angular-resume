@@ -32,6 +32,15 @@ class BaseExperience {
   };
   private _skillList: Skill[] = [];
 
+  // Getter
+  get startDate(): string {
+    return this._startDate.toISOString();
+  }
+
+  get endDate(): string | undefined {
+    return this._endDate?.toISOString();
+  }
+
   get skilList(): Skill[] {
     return this._skillList;
   }

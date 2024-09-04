@@ -1,7 +1,14 @@
 {
   "education": {
+    "title": "Éducation",
     "master": {
       "institution": "University of California, Berkeley"
+    }
+  },
+  "experience": {
+    "title": "Expérience",
+    "softwareEngineer": {
+      "company": "Google"
     }
   }
 }

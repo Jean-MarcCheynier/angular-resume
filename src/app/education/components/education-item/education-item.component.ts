@@ -1,10 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { EducationItem } from '../../education.model';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NgIf } from '@angular/common';
 
+import {
+  TranslateModule,
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
+
 @Component({
-  imports: [TranslateModule, NgIf],
+  imports: [NgIf, TranslateModule],
   selector: 'app-education-item',
   standalone: true,
   templateUrl: './education-item.component.html',
@@ -13,9 +18,11 @@ import { NgIf } from '@angular/common';
 export class EducationItemComponent {
   @Input() item?: EducationItem;
 
-  constructor(private translate: TranslateService) {
-    this.translate.setDefaultLang('en');
-    this.translate.use('en');
+  constructor(private translate: TranslateService) {}
+
+  handleChangeLanguage(lang: string = 'fr') {
+    console.log(lang);
+    this.translate.use(lang);
   }
 
   ngOnInit() {
@@ -23,5 +30,6 @@ export class EducationItemComponent {
   }
   ngOnChanges() {
     console.log(this.item);
+    console.log(this.translate.currentLang);
   }
 }

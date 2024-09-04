@@ -1,11 +1,30 @@
-<p>experience works!</p>
+<p>{{ "experience.title" | translate }}</p>
 <div *ngFor="let experience of experienceList">
   <div class="card">
     <div class="card-body" (click)="experience.toggleSelect()">
-      <h5 class="card-title" [class.coucou]="experience.selected">
-        {{ experience.title }} {{ experience.selected && "selected" }}
-        {{ experience.skillList | json }}
-      </h5>
+      <div class="d-flex">
+        <img
+          class="rounded mx-auto d-block"
+          height="40"
+          width="40"
+          [src]="experience.companyImageUrl"
+          class="rounded"
+          alt="..."
+        />
+
+        <div class="text-left mx-3">
+          <h5 class="card-title" [class.selected]="experience.selected">
+            {{ experience.title }} {{ experience.selected && "selected" }}
+            {{ experience.skillList | json }}
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ experience.company }}
+          </h6>
+          <p class="card-text">
+            {{ experience.startDate | dateFormat }} - {{ experience.endDate }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </div>

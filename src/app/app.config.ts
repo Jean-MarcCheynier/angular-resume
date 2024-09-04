@@ -7,11 +7,12 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(),
-    provideHttpClient(),
+    provideHttpClient(withFetch()),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

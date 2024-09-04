@@ -1,6 +1,6 @@
 <div *ngIf="item">
   <div class="conainer-xl">
-    <div class="row">
+    <div class="row" (click)="handleChangeLanguage()">
       <div class="col-12">
         <img
           src="{{ item.imageUrl }}"
@@ -11,7 +11,7 @@
       </div>
       <div class="col-12">{{ item.startDate }} - {{ item.startDate }}</div>
       <div class="col-12">
-        <span i18n>{{ item.institution | translate }}</span>
+        <span i18n>{{ item.institution }}</span>
       </div>
       <div class="col-12">
         <span i18n>{{ item.fieldOfStudy }}</span>
@@ -19,7 +19,7 @@
 
       <div class="col-12">
         <p>
-          <span i18n>{{ item.description | translate }}</span>
+          <span i18n>{{ item.description }}</span>
         </p>
       </div>
     </div>

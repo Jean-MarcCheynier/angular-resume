@@ -32,7 +32,8 @@ export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
       country: 'USA',
     },
     skillSlugList: ['angular'], // Example skills
-    companyImageUrl: 'https://example.com/company-a-logo.png',
+    companyImageUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkb9aAqZUoqaoZaPhHfyhm-nHAN9yK5Mjb6A&s',
   },
   {
     company: 'Company B',

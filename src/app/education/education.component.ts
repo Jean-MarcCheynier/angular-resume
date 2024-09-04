@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { EDUCATION_ITEMS } from './education.constant';
 import { CommonModule } from '@angular/common';
 import { EducationItemComponent } from './components/education-item/education-item.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule, EducationItemComponent],
+  imports: [CommonModule, EducationItemComponent, TranslateModule],
 
   templateUrl: './education.component.html',
   styleUrl: './education.component.scss',
