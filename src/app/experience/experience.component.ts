@@ -7,14 +7,14 @@ import { DateFormatPipe } from '../pipes/date-format.pipe';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-experience',
-  standalone: true,
   imports: [NgFor, NgIf, JsonPipe, TranslateModule, DateFormatPipe],
-
   providers: [],
+  selector: 'app-experience',
 
-  templateUrl: './experience.component.html',
+  standalone: true,
+
   styleUrl: './experience.component.scss',
+  templateUrl: './experience.component.html',
 })
 export class ExperienceComponent implements OnInit {
   experienceList: Experience[] = [];

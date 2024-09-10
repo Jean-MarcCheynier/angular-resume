@@ -4,11 +4,11 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
+  imports: [RouterLink, NgbNavModule],
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, NgbNavModule],
-  templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  templateUrl: './header.component.html',
 })
 export class HeaderComponent {
   constructor(private translate: TranslateService) {}

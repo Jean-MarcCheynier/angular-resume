@@ -21,8 +21,8 @@ export function app(): express.Express {
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
   server.get('**', express.static(browserDistFolder, {
-    maxAge: '1y',
     index: 'index.html',
+    maxAge: '1y',
   }));
 
   // All regular routes use the Angular engine
@@ -33,9 +33,9 @@ export function app(): express.Express {
       .render({
         bootstrap,
         documentFilePath: indexHtml,
-        url: `${protocol}://${headers.host}${originalUrl}`,
-        publicPath: browserDistFolder,
         providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
+        publicPath: browserDistFolder,
+        url: `${protocol}://${headers.host}${originalUrl}`,
       })
       .then((html) => res.send(html))
       .catch((err) => next(err));

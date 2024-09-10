@@ -4,11 +4,11 @@ import { HeaderComponent } from './header/header.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 @Component({
+  imports: [RouterOutlet, HeaderComponent, TranslateModule],
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, TranslateModule],
-  templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   title = 'angular-resume';

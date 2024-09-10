@@ -25,9 +25,9 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {
+          deps: [HttpClient],
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
-          deps: [HttpClient],
         },
       })
     ),

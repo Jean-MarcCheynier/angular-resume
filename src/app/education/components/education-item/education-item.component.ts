@@ -12,8 +12,8 @@ import {
   imports: [NgIf, TranslateModule],
   selector: 'app-education-item',
   standalone: true,
-  templateUrl: './education-item.component.html',
   styleUrl: './education-item.component.scss',
+  templateUrl: './education-item.component.html',
 })
 export class EducationItemComponent {
   @Input() item?: EducationItem;

@@ -11,8 +11,8 @@ import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'dateFormat',
-  standalone: true,
-  pure: false, // Mark the pipe as impure to allow re-rendering
+  pure: false,
+  standalone: true, // Mark the pipe as impure to allow re-rendering
 })
 export class DateFormatPipe implements PipeTransform, OnDestroy {
   private langChangeSubscription: Subscription;

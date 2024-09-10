@@ -5,12 +5,12 @@ import { EducationItemComponent } from './components/education-item/education-it
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
+  imports: [CommonModule, EducationItemComponent, TranslateModule],
   selector: 'app-education',
   standalone: true,
-  imports: [CommonModule, EducationItemComponent, TranslateModule],
 
-  templateUrl: './education.component.html',
   styleUrl: './education.component.scss',
+  templateUrl: './education.component.html',
 })
 export class EducationComponent {
   educationItems = EDUCATION_ITEMS;

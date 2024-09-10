@@ -4,11 +4,11 @@ import { Skill } from './skill.model';
 import { NgFor } from '@angular/common';
 
 @Component({
+  imports: [NgFor],
   selector: 'app-skills',
   standalone: true,
-  imports: [NgFor],
-  templateUrl: './skill.component.html',
   styleUrl: './skill.component.scss',
+  templateUrl: './skill.component.html',
 })
 export class SkillsComponent {
   skillList: Skill[] = [];
