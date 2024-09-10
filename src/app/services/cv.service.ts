@@ -3,6 +3,8 @@ import { Experience } from '../experience/experience.model';
 import { EXPERIENCE_ITEMS } from '../experience/experience.constant';
 import { Skill } from '../skill/skill.model';
 import { SKILL_ITEMS } from '../skill/skill.constants';
+import { isBefore } from 'date-fns';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ export class CvService {
   private _experienceList: Experience[] = [];
   private _skillList: Skill[] = [];
 
-  constructor() {
+  constructor(private translate: TranslateService) {
     //fetch data from the server
     this.fetchSkillList();
     this.fetchExperienceList();
@@ -31,7 +33,7 @@ export class CvService {
 
     for (const { skillSlugList, ...rest } of EXPERIENCE_ITEMS) {
       const skillList = this.getSkillsBySlugList(skillSlugList);
-      const experience = new Experience({ skillList, ...rest });
+      const experience = new Experience({ skillList, ...rest }, this.translate);
 
       experienceList.push(experience);
     }
@@ -43,7 +45,9 @@ export class CvService {
   }
 
   get experienceList() {
-    return this._experienceList;
+    return this._experienceList.sort((a, b) => {
+      return isBefore(b.startDate, a.startDate) ? -1 : 1;
+    });
   }
 
   get skillList() {

@@ -14,16 +14,24 @@
 
         <div class="text-left mx-3">
           <h5 class="card-title" [class.selected]="experience.selected">
-            {{ experience.title }} {{ experience.selected && "selected" }}
-            {{ experience.skillList | json }}
+            {{ experience.title }}
           </h5>
           <h6 class="card-subtitle mb-2 text-muted">
             {{ experience.company }}
           </h6>
           <p class="card-text">
-            {{ experience.startDate | dateFormat }} - {{ experience.endDate }}
+            {{ experience.startDate | dateFormat }} -
+            <span *ngIf="experience.endDate; else noDate">
+              {{ experience.endDate | dateFormat }}
+            </span>
+            <ng-template #noDate> experience.noDate </ng-template>
           </p>
         </div>
+      </div>
+      <div>
+        <p class="card-text">
+          {{ experience.description }}
+        </p>
       </div>
     </div>
   </div>
