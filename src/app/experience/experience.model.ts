@@ -3,18 +3,21 @@ import { Selectable } from '../services/cv.service';
 import { Skill } from '../skill/skill.model';
 import { de } from 'date-fns/locale';
 import { TranslateService } from '@ngx-translate/core';
+import { ExperienceItemData, MultilingualContent } from './experience.constant';
+import {
+  LanguageProvider,
+  LanguageProviderInterface,
+} from '../services/language-provider.service';
 
 export interface ExperienceConstructorProps {
-  companyProfileUrl?: string;
+  title: MultilingualContent<string>;
   companyImageUrl: string;
+  companyProfileUrl?: string;
   company: string;
-  title: string;
+
   startDate: string;
   endDate?: string;
-  description: {
-    en: string;
-    fr: string;
-  };
+  description: MultilingualContent<string>;
   location: {
     city: string;
     country: string;
@@ -22,24 +25,20 @@ export interface ExperienceConstructorProps {
   skillList: Skill[];
 }
 
-type LanguageProvider = {
-  currentLang: string;
-};
-
 class BaseExperience {
   companyImageUrl: string;
   company: string;
-  title: string;
+  private _title!: MultilingualContent<string>;
   private _startDate!: Date;
   private _endDate?: Date;
-  private _description!: Record<string, string>;
+  private _description!: MultilingualContent<string>;
   private location: {
     city: string;
     country: string;
   };
   private _skillList: Skill[] = [];
 
-  private languageProvider?: LanguageProvider;
+  private languageProvider!: LanguageProviderInterface;
 
   // Getter
   get startDate(): Date {
@@ -54,13 +53,19 @@ class BaseExperience {
     return this._skillList;
   }
 
+  get title(): string {
+    return this._title[this.languageProvider.getCurrentLang()];
+  }
+
   get description(): string {
-    const lang = this.languageProvider?.currentLang || 'en';
-    return this._description[lang];
+    return this._description[this.languageProvider.getCurrentLang()];
   }
 
   // Setter
-  set description(value: { en: string; fr: string }) {
+  set title(value: MultilingualContent<string>) {
+    this._title = value;
+  }
+  set description(value: MultilingualContent<string>) {
     this._description = value;
   }
 
@@ -78,7 +83,7 @@ class BaseExperience {
 
   constructor(
     props: ExperienceConstructorProps,
-    LanguageProvider?: LanguageProvider
+    languageProvider: LanguageProviderInterface
   ) {
     this.companyImageUrl = props.companyImageUrl;
     this.company = props.company;
@@ -92,14 +97,14 @@ class BaseExperience {
     };
     this.skillList = props.skillList;
 
-    this.languageProvider = LanguageProvider;
+    this.languageProvider = languageProvider;
   }
 }
 
 export class Experience extends Selectable(BaseExperience) {
   constructor(
     props: ExperienceConstructorProps,
-    languageProvider?: LanguageProvider
+    languageProvider: LanguageProviderInterface
   ) {
     super(props, languageProvider);
   }

@@ -1,10 +1,11 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, Injectable } from '@angular/core';
 import { Experience } from '../experience/experience.model';
 import { EXPERIENCE_ITEMS } from '../experience/experience.constant';
 import { Skill } from '../skill/skill.model';
 import { SKILL_ITEMS } from '../skill/skill.constants';
 import { isBefore } from 'date-fns';
 import { TranslateService } from '@ngx-translate/core';
+import { Lang, LanguageProvider } from './language-provider.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class CvService {
   private _experienceList: Experience[] = [];
   private _skillList: Skill[] = [];
 
-  constructor(private translate: TranslateService) {
+  constructor(private languageProvider: LanguageProvider) {
     //fetch data from the server
     this.fetchSkillList();
     this.fetchExperienceList();
@@ -33,7 +34,10 @@ export class CvService {
 
     for (const { skillSlugList, ...rest } of EXPERIENCE_ITEMS) {
       const skillList = this.getSkillsBySlugList(skillSlugList);
-      const experience = new Experience({ skillList, ...rest }, this.translate);
+      const experience = new Experience(
+        { skillList, ...rest },
+        this.languageProvider
+      );
 
       experienceList.push(experience);
     }
