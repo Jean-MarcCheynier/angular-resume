@@ -16,6 +16,10 @@ export type Lang = (typeof LANG)[number];
 export class LanguageProvider implements LanguageProviderInterface {
   constructor(private translate: TranslateService) {}
 
+  use(lang: Lang) {
+    this.translate.use(lang);
+  }
+
   getCurrentLang() {
     return LANG.includes(this.translate.currentLang as Lang)
       ? (this.translate.currentLang as Lang)

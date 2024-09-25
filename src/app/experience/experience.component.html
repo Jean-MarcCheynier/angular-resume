@@ -1,5 +1,5 @@
 <p>{{ "experience.title" | translate }}</p>
-<div *ngFor="let experience of experienceList">
+<div class="py-2" *ngFor="let experience of experienceList">
   <div class="card">
     <div class="card-body" (click)="experience.toggleSelect()">
       <div class="d-flex">
@@ -19,11 +19,21 @@
           <h6 class="card-subtitle mb-2 text-muted">
             {{ experience.company }}
           </h6>
-          <p class="card-text">
+
+          <p class="text-secondary">
             {{ experience.startDate | dateFormat }} -
             <span *ngIf="experience.endDate; else noDate">
               {{ experience.endDate | dateFormat }}
             </span>
+            <ng-template #noDate> experience.noDate </ng-template>
+            <br />
+
+            {{ experience.location.city | translate }},
+            {{ experience.location.country }} &centerdot;
+            {{
+              "experience.workArrangement." + experience.workArrangement
+                | translate
+            }}
             <ng-template #noDate> experience.noDate </ng-template>
           </p>
         </div>

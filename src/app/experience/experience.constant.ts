@@ -40,6 +40,7 @@ export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
       en: 'Software Engineer fullstack developer - React Native React Admin',
       fr: 'Développeur fullstack React Native React Admin',
     },
+    workArrangement: 'remote',
   },
   {
     company: 'Fujitsu Belgium',
@@ -54,11 +55,13 @@ export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
       country: 'Belgium',
     },
     skillSlugList: [],
-    startDate: '2018-06-01',
+    startDate: '2019-04-01',
+    endDate: '2021-08-01',
     title: {
       en: 'Software Engineer fullstack developer - react express / angular express SAP CAI',
       fr: 'Développeur fullstack react express / angular express SAP CAI',
     },
+    workArrangement: 'hybrid',
   },
   {
     company: 'Aviva France',
@@ -74,8 +77,8 @@ export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
     endDate: '2019-02-01',
 
     location: {
-      city: 'Austin',
-      country: 'USA',
+      city: 'Courbevoie',
+      country: 'France',
     },
 
     skillSlugList: [],
@@ -85,5 +88,6 @@ export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
       en: "'Software Engineer fullstack developer - Angular Java',",
       fr: 'Développeur fullstack Angular Java',
     },
+    workArrangement: 'hybrid',
   },
 ];

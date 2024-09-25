@@ -2,6 +2,11 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import {
+  DEFAULT_LANG,
+  Lang,
+  LanguageProvider,
+} from '../services/language-provider.service';
 
 @Component({
   imports: [RouterLink, NgbNavModule],
@@ -11,10 +16,14 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  constructor(private translate: TranslateService) {}
+  switchToLang: Lang = DEFAULT_LANG;
+  constructor(private languageProvider: LanguageProvider) {
+    this.switchToLang = this.languageProvider.getCurrentLang();
+  }
 
   toggleLang() {
-    console.log('toggleLang');
-    this.translate.use(this.translate.currentLang === 'en' ? 'fr' : 'en');
+    const currentLang = this.languageProvider.getCurrentLang();
+    this.languageProvider.use(currentLang === 'en' ? 'fr' : 'en');
+    this.switchToLang = currentLang;
   }
 }

@@ -1,19 +1,36 @@
-<nav>
-  <ul ngbNav #nav="ngbNav">
-    <li ngbNavItem>
-      <a ngbNavLink routerLink="/about">About</a>
-    </li>
-    <li ngbNavItem>
-      <a ngbNavLink routerLink="/experience">Experience</a>
-    </li>
-    <li ngbNavItem>
-      <a ngbNavLink routerLink="/education">Education</a>
-    </li>
-    <li ngbNavItem>
-      <a ngbNavLink routerLink="/skills">Skills</a>
-    </li>
-  </ul>
-  <button class="btn btn-outline-primary" (click)="toggleLang()">
-    <i class="bi-alarm"></i>About
-  </button>
+<nav ngbNavContent>
+  <div class="container-fluid">
+    <ul ngbNav #nav="ngbNav" class="">
+      <li ngbNavItem>
+        <a ngbNavLink routerLinkActive="active" routerLink="/about">About</a>
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink routerLinkActive="active" routerLink="/experience"
+          >Experience</a
+        >
+      </li>
+      <li ngbNavItem>
+        <a ngbNavLink routerLinkActive="active" routerLink="/education"
+          >Education</a
+        >
+      </li>
+      <li ngbNavItem>
+        <a
+          ngbNavLink
+          routerLinkActive="active"
+          routerLink="/skills"
+          class="active"
+          >Skills</a
+        >
+      </li>
+      <li ngbNavItem [disabled]="true">
+        <button
+          class="btn btn-outline-primary lang-button d-flex"
+          (click)="toggleLang()"
+        >
+          <i class="bi-alarm"></i> {{ switchToLang }}
+        </button>
+      </li>
+    </ul>
+  </div>
 </nav>

@@ -9,6 +9,11 @@
     "title": "Expérience",
     "softwareEngineer": {
       "company": "Google"
+    },
+    "workArrangement": {
+      "remote": "À distance",
+      "hybrid": "Hybride",
+      "onsite": "Sur site"
     }
   }
 }

@@ -9,11 +9,14 @@ import {
   LanguageProviderInterface,
 } from '../services/language-provider.service';
 
+export type WorkArrangement = 'remote' | 'onsite' | 'hybrid';
+
 export interface ExperienceConstructorProps {
   title: MultilingualContent<string>;
   companyImageUrl: string;
   companyProfileUrl?: string;
   company: string;
+  workArrangement: WorkArrangement;
 
   startDate: string;
   endDate?: string;
@@ -28,11 +31,12 @@ export interface ExperienceConstructorProps {
 class BaseExperience {
   companyImageUrl: string;
   company: string;
+  workArrangement: WorkArrangement;
   private _title!: MultilingualContent<string>;
   private _startDate!: Date;
   private _endDate?: Date;
   private _description!: MultilingualContent<string>;
-  private location: {
+  location: {
     city: string;
     country: string;
   };
@@ -98,6 +102,7 @@ class BaseExperience {
     this.skillList = props.skillList;
 
     this.languageProvider = languageProvider;
+    this.workArrangement = props.workArrangement;
   }
 }
 
