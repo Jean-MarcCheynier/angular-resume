@@ -50,13 +50,13 @@ export const EXPERIENCE_ITEMS: ExperienceItemData[] = [
       en: 'Worked on various frontend projects using React and Redux.',
       fr: 'Travaillé sur divers projets frontend utilisant React et Redux.',
     },
+    endDate: '2021-08-01',
     location: {
       city: 'Brussels',
       country: 'Belgium',
     },
     skillSlugList: [],
     startDate: '2019-04-01',
-    endDate: '2021-08-01',
     title: {
       en: 'Software Engineer fullstack developer - react express / angular express SAP CAI',
       fr: 'Développeur fullstack react express / angular express SAP CAI',

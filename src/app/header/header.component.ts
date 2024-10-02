@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   DEFAULT_LANG,
   Lang,
@@ -9,7 +9,7 @@ import {
 } from '../services/language-provider.service';
 
 @Component({
-  imports: [RouterLink, NgbNavModule],
+  imports: [RouterLink, NgbNavModule, TranslateModule],
   selector: 'app-header',
   standalone: true,
   styleUrl: './header.component.scss',
@@ -17,7 +17,10 @@ import {
 })
 export class HeaderComponent {
   switchToLang: Lang = DEFAULT_LANG;
-  constructor(private languageProvider: LanguageProvider) {
+  constructor(
+    private languageProvider: LanguageProvider,
+    public translate: TranslateService
+  ) {
     this.switchToLang = this.languageProvider.getCurrentLang();
   }
 

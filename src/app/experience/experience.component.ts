@@ -5,9 +5,17 @@ import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { DateFormatPipe } from '../pipes/date-format.pipe';
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ExperienceCardComponent } from './card/experience-card.component';
 
 @Component({
-  imports: [NgFor, NgIf, JsonPipe, TranslateModule, DateFormatPipe],
+  imports: [
+    NgFor,
+    NgIf,
+    JsonPipe,
+    TranslateModule,
+    DateFormatPipe,
+    ExperienceCardComponent,
+  ],
   providers: [],
   selector: 'app-experience',
 
@@ -30,7 +38,7 @@ export class ExperienceComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log('onchange', this.translate.currentLang);
+    //console.log('onchange', this.translate.currentLang);
   }
 
   fetchExperienceList() {

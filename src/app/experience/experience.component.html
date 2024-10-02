@@ -1,48 +1,7 @@
 <p>{{ "experience.title" | translate }}</p>
 <div class="py-2" *ngFor="let experience of experienceList">
-  <div class="card">
-    <div class="card-body" (click)="experience.toggleSelect()">
-      <div class="d-flex">
-        <img
-          class="rounded mx-auto d-block"
-          height="40"
-          width="40"
-          [src]="experience.companyImageUrl"
-          class="rounded"
-          alt="..."
-        />
-
-        <div class="text-left mx-3">
-          <h5 class="card-title" [class.selected]="experience.selected">
-            {{ experience.title }}
-          </h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            {{ experience.company }}
-          </h6>
-
-          <p class="text-secondary">
-            {{ experience.startDate | dateFormat }} -
-            <span *ngIf="experience.endDate; else noDate">
-              {{ experience.endDate | dateFormat }}
-            </span>
-            <ng-template #noDate> experience.noDate </ng-template>
-            <br />
-
-            {{ experience.location.city | translate }},
-            {{ experience.location.country }} &centerdot;
-            {{
-              "experience.workArrangement." + experience.workArrangement
-                | translate
-            }}
-            <ng-template #noDate> experience.noDate </ng-template>
-          </p>
-        </div>
-      </div>
-      <div>
-        <p class="card-text">
-          {{ experience.description }}
-        </p>
-      </div>
-    </div>
-  </div>
+  <app-experience-card
+    [experience]="experience"
+    (click)="experience.toggleSelect()"
+  ></app-experience-card>
 </div>
