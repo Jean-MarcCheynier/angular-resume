@@ -1,4 +1,7 @@
-<div class="my-card" (click)="experience.toggleSelect()">
+<div class="my-card" [class.selected]="experience.selected">
+  <div *ngIf="experience.selected" class="float-end">
+    <i class="bi bi-check-circle-fill text-info"></i>
+  </div>
   <div class="card-body">
     <div class="d-flex">
       <img
@@ -12,7 +15,7 @@
       <div class="text-left mx-3">
         <h5
           class="card-title text-primary"
-          [class.selected]="experience.selected"
+          [class.text-info]="experience.selected"
         >
           {{ experience.title }}
         </h5>
@@ -38,6 +41,7 @@
         </p>
       </div>
     </div>
+
     <div>
       <p class="card-text">
         {{ experience.description }}

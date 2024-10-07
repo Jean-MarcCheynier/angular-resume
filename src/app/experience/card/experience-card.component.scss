@@ -2,11 +2,25 @@
 
 .my-card {
     border-radius: 4px;
-    border-color: $primary;
-    border-width: 2px;
+    border-color: $light;
+    border-width: 1px;
     border-style: solid;
     padding: 20px;
     background-color: $light;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Add shadow effect
+    &:hover {
+        border-color: $gray-400;
+        background-color: $gray-100; // Change background color on hover
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); // Add stronger shadow on hover
+    }
+    &.selected {
+        border-color: shift-color($info, 40);
+        box-shadow: 0 2px 8px 0px shift-color($info, 40); 
+        &:hover {
+            border-color: shift-color($info, -20);
+            box-shadow: 0 2px 8px shift-color($info, -20); 
+        }
+    }
    
 
 }
