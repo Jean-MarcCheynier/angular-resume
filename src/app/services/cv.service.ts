@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, EventEmitter, Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Experience } from '../experience/experience.model';
 import { EXPERIENCE_ITEMS } from '../experience/experience.constant';
 import { Skill } from '../skill/skill.model';
 import { SKILL_ITEMS } from '../skill/skill.constants';
 import { isBefore } from 'date-fns';
-import { TranslateService } from '@ngx-translate/core';
-import { Lang, LanguageProvider } from './language-provider.service';
+import { LanguageProvider } from './language-provider.service';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +43,12 @@ export class CvService {
     this._experienceList = experienceList;
   }
 
+  /*   private searchSkill(search: string): Skill {
+    return this._skillList.find((skill) => skill.name === search);
+  } */
+
+  /*  private searchExperienceBySkillSlug(skillSlug: string): Experience[] {} */
+
   getSkillsBySlugList(slugList: string[]): Skill[] {
     return this._skillList.filter((skill) => slugList.includes(skill.slug));
   }
@@ -59,7 +64,8 @@ export class CvService {
   }
 }
 
-type Constructor<T = {}> = new (...args: any[]) => T;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Constructor<T = object> = new (...args: any[]) => T;
 
 interface ISelectable {
   selected: boolean;
@@ -77,6 +83,7 @@ export function Selectable<TBase extends Constructor>(
     selectedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
     innerSelectable: ISelectable[] = [];
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
       this.innerSelectable = [];
