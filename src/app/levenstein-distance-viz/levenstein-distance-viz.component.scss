@@ -1,17 +1,31 @@
 @import "styles/custom-variables.scss";
 
 .frame {
+  border-radius: 4px;
   display: flex;
   display: inline-block;
-  border: 0.5px solid #000;
+  border: 1px solid $secondary;
 }
 .cell {
-  width: 20px;
-  border: 0.5px solid #000;
+  width: 35px;
+  height: 35px;
   text-align: center;
+  border: 1px solid $secondary;
+  line-height: 35px;
 }
 
 .cell-result {
-  border: 2px solid $primary;
+  border: 1px solid $success;
+  background-color: $success;
 
+}
+
+.cell-current {
+  border: 1px solid $warning;
+  background-color: $warning;
+
+}
+
+.t-indicator{
+  min-width: 70px;
 }

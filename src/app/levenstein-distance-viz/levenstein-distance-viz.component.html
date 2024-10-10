@@ -1,29 +1,75 @@
-<p>levenstein-distance-viz works!</p>
+<br />
+<h1>The Levenstein distance</h1>
 
 <form>
-  <input
-    type="text"
-    [(ngModel)]="string1"
-    name="string1"
-    placeholder="string1"
-  />
-  <input
-    type="text"
-    [(ngModel)]="string2"
-    name="string2"
-    placeholder="string2"
-  />
-  <button class="btn btn-primary" (click)="run()">Calculate distance</button>
+  <div class="row g-3 align-items-center">
+    <div class="col-auto">
+      <input
+        class="form-control"
+        type="text"
+        [(ngModel)]="string1"
+        name="string1"
+        placeholder="Enter a string"
+        (ngModelChange)="handleOnString1Change($event)"
+      />
+    </div>
+    <div class="col-auto">
+      <input
+        class="form-control"
+        type="text"
+        [(ngModel)]="string2"
+        name="string2"
+        placeholder="Enter a string"
+        (ngModelChange)="handleOnString2Change($event)"
+      />
+    </div>
+    <div class="col-auto">
+      <div class="btn-group" role="group" aria-label="button control group">
+        <button class="btn btn-secondary" (click)="goToFirstStep()">
+          <i class="bi bi-skip-backward-fill"></i>
+        </button>
+        <button class="btn btn-secondary" (click)="goToPreviousStep()">
+          <i class="bi bi-rewind-fill"></i>
+        </button>
+        <button class="btn btn-secondary t-indicator" disabled>
+          t = {{ t }}
+        </button>
+        <button class="btn btn-secondary" (click)="goToNextStep()">
+          <i class="bi bi-fast-forward-fill"></i>
+        </button>
+        <button class="btn btn-secondary" (click)="goToLastStep()">
+          <i class="bi bi-skip-forward-fill"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-auto text-secondary">&nbsp;i = {{ thistory[t].i }}</div>
+    <div class="col-auto text-secondary">&nbsp;j = {{ thistory[t].j }}</div>
+  </div>
 </form>
 
-<div class="frame">
-  <div *ngFor="let item of history[t][0]; let j = index" class="d-flex">
+<div class="container my-3 d-flex justify-content-center">
+  <div class="frame">
     <div
-      *ngFor="let item of history[t]; let i = index"
-      class="cell"
-      [class.cell-result]="i == string1.length && j == string2.length"
+      *ngFor="let item of thistory[t].matrix[0]; let j = index"
+      class="d-flex"
     >
-      {{ history[t][i][j] }}
+      <div
+        *ngFor="let item of thistory[t].matrix; let i = index"
+        class="cell"
+        [class.cell-result]="
+          i === string1.length &&
+          j === string2.length &&
+          t === thistory.length - 1
+        "
+        [class.cell-current]="
+          i === thistory[t].i &&
+          j === thistory[t].j &&
+          t !== thistory.length - 1
+        "
+      >
+        <span>{{ thistory[t].matrix[i][j] }}</span>
+      </div>
     </div>
   </div>
 </div>

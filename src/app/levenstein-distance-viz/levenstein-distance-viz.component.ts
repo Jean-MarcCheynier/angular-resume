@@ -1,7 +1,11 @@
-import { Component, Input } from '@angular/core';
-import { LevensteinDistanceService } from '../services/levenstein-distance.service';
+import { Component, Input, OnInit } from '@angular/core';
+import {
+  LevensteinDistanceService,
+  MatrixHistory,
+} from '../services/levenstein-distance.service';
 import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { debounceTime, Subject, Subscription } from 'rxjs';
 
 @Component({
   imports: [NgFor, FormsModule],
@@ -12,40 +16,81 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './levenstein-distance-viz.component.scss',
   templateUrl: './levenstein-distance-viz.component.html',
 })
-export class LevensteinDistanceVizComponent {
+export class LevensteinDistanceVizComponent implements OnInit {
   @Input() string1: string = '';
   @Input() string2: string = '';
+  @Input() t: number = 0;
 
-  private _t: number = 0;
-  history: number[][][] = [];
+  public thistory: MatrixHistory = [];
+
+  private string1Subject = new Subject<string>();
+  private string2Subject = new Subject<string>();
+  private subscriptions: Subscription[] = [];
 
   constructor(private levensteinDistanceService: LevensteinDistanceService) {}
 
-  @Input()
-  set t(value: number) {
-    if (value >= 0 || value < this.history.length) {
-      this._t = value;
-    } else {
-      throw new Error('t out of scope');
+  ngOnInit() {
+    this.subscriptions.push(
+      this.string1Subject.pipe(debounceTime(300)).subscribe(() => {
+        this.run();
+      })
+    );
+
+    this.subscriptions.push(
+      this.string2Subject.pipe(debounceTime(300)).subscribe(() => {
+        this.run();
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+
+  handleOnString1Change(value: string) {
+    this.string1Subject.next(value);
+  }
+
+  handleOnString2Change(value: string) {
+    this.string2Subject.next(value);
+  }
+
+  goToFirstStep() {
+    console.log('plop');
+    this.t = 0;
+  }
+
+  goToLastStep() {
+    console.log(this.thistory);
+    this.t = this.thistory.length - 1;
+  }
+
+  goToNextStep() {
+    if (this.t < this.thistory.length - 1) {
+      this.t++;
     }
   }
 
-  get t() {
-    return this._t;
+  goToPreviousStep() {
+    if (this.t > 0) {
+      this.t--;
+    }
   }
 
   reset() {
     this.t = 0;
-    this.history = [];
+    this.thistory = [];
   }
 
   run() {
     this.reset();
 
-    this.levensteinDistanceService.levenshteinDistance(
+    this.levensteinDistanceService.levensteinDistance(
       this.string1,
       this.string2
     );
-    this.history = this.levensteinDistanceService.matrixHistory;
+    const history = this.levensteinDistanceService.matrixHistory;
+    this.thistory = history;
+    this.goToLastStep();
   }
 }

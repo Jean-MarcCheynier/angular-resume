@@ -5,6 +5,7 @@ import { Skill } from '../skill/skill.model';
 import { SKILL_ITEMS } from '../skill/skill.constants';
 import { isBefore } from 'date-fns';
 import { LanguageProvider } from './language-provider.service';
+import { LevensteinDistanceService } from './levenstein-distance.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +14,14 @@ export class CvService {
   private _experienceList: Experience[] = [];
   private _skillList: Skill[] = [];
 
-  constructor(private languageProvider: LanguageProvider) {
+  constructor(
+    private languageProvider: LanguageProvider,
+    private levensteinDistanceService: LevensteinDistanceService
+  ) {
     //fetch data from the server
     this.fetchSkillList();
     this.fetchExperienceList();
+    console.log(this.searchSkill('NestJs'));
   }
 
   private fetchSkillList() {
@@ -43,9 +48,18 @@ export class CvService {
     this._experienceList = experienceList;
   }
 
-  /*   private searchSkill(search: string): Skill {
-    return this._skillList.find((skill) => skill.name === search);
-  } */
+  private searchSkill(search: string): any {
+    return this._skillList
+      .map((skill) => ({
+        distance: this.levensteinDistanceService.levensteinDistanceRatio(
+          skill.slug,
+          search
+        ),
+        skill,
+      }))
+      .filter((item) => item.distance > 0.4)
+      .sort((a, b) => b.distance - a.distance);
+  }
 
   /*  private searchExperienceBySkillSlug(skillSlug: string): Experience[] {} */
 

@@ -1,20 +1,38 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+export type MatrixHistory = { matrix: number[][]; i: number; j: number }[];
+
+const initialMatrixHistory: MatrixHistory = [
+  {
+    i: 0,
+    j: 0,
+    matrix: [],
+  },
+];
+
+@Injectable({ providedIn: 'root' })
 export class LevensteinDistanceService {
-  private _matrixHistory: number[][][] = [];
+  private _matrixHistory: MatrixHistory = initialMatrixHistory;
   constructor() {}
 
-  private save(matrix: number[][]): void {
-    this._matrixHistory.push(matrix);
-  }
-
-  get matrixHistory(): number[][][] {
+  get matrixHistory(): MatrixHistory {
     return this._matrixHistory;
   }
 
-  levenshteinDistance(str1: string, str2: string): number {
-    this._matrixHistory = [];
+  private reset(): void {
+    this._matrixHistory = initialMatrixHistory;
+  }
+
+  private save(matrix: number[][], i: number, j: number): void {
+    this._matrixHistory.push({ i, j, matrix: this.deepClone(matrix) });
+  }
+
+  private deepClone(matrix: number[][]): number[][] {
+    return matrix.map((row) => row.map((cell) => cell));
+  }
+
+  levensteinDistance(str1: string, str2: string): number {
+    this.reset();
     const len1 = str1.length;
     const len2 = str2.length;
 
@@ -27,12 +45,10 @@ export class LevensteinDistanceService {
     for (let i = 0; i <= len1; i++) {
       //Assignation
       dp[i][0] = i;
-      this.save(dp);
     }
     for (let j = 0; j <= len2; j++) {
       //Assignation
       dp[0][j] = j;
-      this.save(dp);
     }
 
     // Compute Levenshtein distance
@@ -46,10 +62,16 @@ export class LevensteinDistanceService {
           dp[i][j - 1] + 1, // insertion
           dp[i - 1][j - 1] + cost // substitution
         );
-        this.save(dp);
+        this.save(dp, i, j);
       }
     }
 
     return dp[len1][len2]; // The Levenshtein distance is the bottom-right corner of the matrix
+  }
+
+  levensteinDistanceRatio(str1: string, str2: string): number {
+    const distance = this.levensteinDistance(str1, str2);
+    const ration = 1 - distance / Math.max(str1.length, str2.length);
+    return parseFloat(ration.toFixed(2));
   }
 }
