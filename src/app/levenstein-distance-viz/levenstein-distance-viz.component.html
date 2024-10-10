@@ -1,0 +1,29 @@
+<p>levenstein-distance-viz works!</p>
+
+<form>
+  <input
+    type="text"
+    [(ngModel)]="string1"
+    name="string1"
+    placeholder="string1"
+  />
+  <input
+    type="text"
+    [(ngModel)]="string2"
+    name="string2"
+    placeholder="string2"
+  />
+  <button class="btn btn-primary" (click)="run()">Calculate distance</button>
+</form>
+
+<div class="frame">
+  <div *ngFor="let item of history[t][0]; let j = index" class="d-flex">
+    <div
+      *ngFor="let item of history[t]; let i = index"
+      class="cell"
+      [class.cell-result]="i == string1.length && j == string2.length"
+    >
+      {{ history[t][i][j] }}
+    </div>
+  </div>
+</div>

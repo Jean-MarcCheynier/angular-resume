@@ -1,0 +1,17 @@
+@import "styles/custom-variables.scss";
+
+.frame {
+  display: flex;
+  display: inline-block;
+  border: 0.5px solid #000;
+}
+.cell {
+  width: 20px;
+  border: 0.5px solid #000;
+  text-align: center;
+}
+
+.cell-result {
+  border: 2px solid $primary;
+
+}
