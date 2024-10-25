@@ -1,4 +1,9 @@
 <p>{{ "experience.title" | translate }}</p>
+<app-auto-complete
+  [options]="skillList"
+  [searchProperties]="['slug']"
+  [renderOption]="renderOption"
+></app-auto-complete>
 <div class="py-3" *ngFor="let experience of experienceList">
   <app-experience-card
     [experience]="experience"

@@ -3,12 +3,12 @@ import {
   LevensteinDistanceService,
   MatrixHistory,
 } from '../services/levenstein-distance.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, Subject, Subscription } from 'rxjs';
 
 @Component({
-  imports: [NgFor, FormsModule],
+  imports: [NgFor, FormsModule, NgIf],
 
   providers: [LevensteinDistanceService],
   selector: 'app-levenstein-distance-viz',
@@ -56,12 +56,10 @@ export class LevensteinDistanceVizComponent implements OnInit {
   }
 
   goToFirstStep() {
-    console.log('plop');
     this.t = 0;
   }
 
   goToLastStep() {
-    console.log(this.thistory);
     this.t = this.thistory.length - 1;
   }
 

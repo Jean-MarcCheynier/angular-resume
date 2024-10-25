@@ -21,7 +21,6 @@ export class CvService {
     //fetch data from the server
     this.fetchSkillList();
     this.fetchExperienceList();
-    console.log(this.searchSkill('NestJs'));
   }
 
   private fetchSkillList() {

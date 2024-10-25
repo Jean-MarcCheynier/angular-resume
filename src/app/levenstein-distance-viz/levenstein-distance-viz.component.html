@@ -43,13 +43,15 @@
       </div>
     </div>
 
-    <div class="col-auto text-secondary">&nbsp;i = {{ thistory[t].i }}</div>
-    <div class="col-auto text-secondary">&nbsp;j = {{ thistory[t].j }}</div>
+    <div class="frame" *ngIf="thistory[t]">
+      <div class="col-auto text-secondary">&nbsp;i = {{ thistory[t].i }}</div>
+      <div class="col-auto text-secondary">&nbsp;j = {{ thistory[t].j }}</div>
+    </div>
   </div>
 </form>
 
 <div class="container my-3 d-flex justify-content-center">
-  <div class="frame">
+  <div class="frame" *ngIf="thistory[t]">
     <div
       *ngFor="let item of thistory[t].matrix[0]; let j = index"
       class="d-flex"

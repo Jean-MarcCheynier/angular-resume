@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 
 export type MatrixHistory = { matrix: number[][]; i: number; j: number }[];
+/* export type LevensteinDistanceRatioResult<
+  T extends Record<P, string>,
+  P extends keyof T
+> = Record<P, { ratio: number; value: T }[]>; */
+
+export interface LevensteinDistanceRatioResult<T> {
+  [key: string]: { ratio: number; value: T }[];
+}
 
 const initialMatrixHistory: MatrixHistory = [
   {
@@ -73,5 +81,35 @@ export class LevensteinDistanceService {
     const distance = this.levensteinDistance(str1, str2);
     const ration = 1 - distance / Math.max(str1.length, str2.length);
     return parseFloat(ration.toFixed(2));
+  }
+
+  getLevensteinDistanceRatio<T extends Record<P, string>, P extends keyof T>(
+    search: string,
+    values: T[],
+    properties: P[]
+  ): LevensteinDistanceRatioResult<T> {
+    const result: LevensteinDistanceRatioResult<T> =
+      {} as LevensteinDistanceRatioResult<T>;
+
+    for (const p of properties) {
+      console.log('Property', p);
+      const searchedValue = [];
+
+      for (const v of values) {
+        // eslint-disable-next-line no-prototype-builtins
+        if (!v.hasOwnProperty(p)) {
+          throw new Error(`Property ${String(p)} not found in object`);
+        }
+        const string = v[p];
+        const ratio = this.levensteinDistanceRatio(search, string);
+        console.log(`Match ${v[p]} with ratio ${ratio}`);
+        if (ratio > 0.3) {
+          searchedValue.push({ ratio, value: v });
+        }
+      }
+      result[p as string] = [...searchedValue];
+    }
+
+    return result;
   }
 }

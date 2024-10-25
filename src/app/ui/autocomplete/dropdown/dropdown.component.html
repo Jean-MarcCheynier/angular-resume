@@ -1,0 +1,10 @@
+<div>
+  search
+  <option
+    class="dropdown-item"
+    *ngFor="let item of dropdownItems"
+    (click)="handleOnDropdownItemClick(item.value)"
+  >
+    {{ item.displayValue }}
+  </option>
+</div>

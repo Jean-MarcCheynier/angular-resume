@@ -1,0 +1,14 @@
+<div class="autocomplete">
+  <input
+    id="search"
+    #searchInput
+    class="form-control"
+    type="string"
+    [placeholder]="placeholder"
+    autocomplete="off"
+  />
+  <app-dropdown
+    [dropdownItems]="suggestions"
+    [renderOption]="renderOption"
+  ></app-dropdown>
+</div>
