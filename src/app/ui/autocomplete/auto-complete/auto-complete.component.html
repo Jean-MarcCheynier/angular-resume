@@ -5,10 +5,13 @@
     class="form-control"
     type="string"
     [placeholder]="placeholder"
+    [(ngModel)]="searchTerm"
     autocomplete="off"
   />
   <app-dropdown
+    [hidden]="!showSearches"
     [dropdownItems]="suggestions"
     [renderOption]="renderOption"
+    (selectSuggestionEvent)="handleOnSelectSuggestion($event)"
   ></app-dropdown>
 </div>

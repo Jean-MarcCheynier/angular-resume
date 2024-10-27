@@ -1,5 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Suggestion } from '../auto-complete/auto-complete.component';
 
 @Component({
@@ -10,18 +10,17 @@ import { Suggestion } from '../auto-complete/auto-complete.component';
   templateUrl: './dropdown.component.html',
 })
 export class DropdownComponent<T extends object> {
-  ngOnChanges(): void {
-    console.log('dropdown items', this.dropdownItems);
-  }
+  ngOnChanges(): void {}
   @Input() dropdownItems: Suggestion<T>[] = [];
   @Input() value: T | null = null;
   @Input() showDropdown = true;
   @Input() renderOption?: (value: T) => string = (value) => value.toString();
 
-  handleOnDropdownItemClick = (item: T | null) => {
-    if (item) {
-      this.value = item;
-      this.showDropdown = true;
-    }
+  @Output() selectSuggestionEvent = new EventEmitter<T>();
+
+  handleOnDropdownItemClick = (item: T) => {
+    this.value = item;
+    this.showDropdown = false;
+    this.selectSuggestionEvent.emit(this.value);
   };
 }

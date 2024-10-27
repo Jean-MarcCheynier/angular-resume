@@ -20,14 +20,16 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
+import { FormsModule } from '@angular/forms';
 
 export interface Suggestion<T> {
   displayValue: string;
+  ratio?: number;
   value: T | null;
 }
 
 @Component({
-  imports: [DropdownComponent, InputComponent],
+  imports: [DropdownComponent, InputComponent, FormsModule],
   selector: 'app-auto-complete',
   standalone: true,
   styleUrl: './auto-complete.component.scss',
@@ -45,8 +47,10 @@ export class AutoCompleteComponent<
   @Input() searchProperties: P[] = [];
 
   @Input() value: T | null = null;
-  @Input() renderOption?: (value: T) => string = (value) =>
+  @Input() renderOption: (value: T) => string = (value) =>
     value[this.searchProperties[0]];
+
+  searchTerm = '';
 
   isSearching = false;
   showSearches = false;
@@ -102,10 +106,17 @@ export class AutoCompleteComponent<
       value.forEach((v) => {
         res.push({
           displayValue: v.value[this.searchProperties[0]],
+          ratio: v.ratio,
           value: v.value,
         });
       });
     });
     return res;
   }
+
+  handleOnSelectSuggestion = (suggestion: T | null) => {
+    this.value = suggestion;
+    this.searchTerm = this.renderOption(suggestion as T);
+    this.showSearches = false;
+  };
 }
