@@ -1,0 +1,13 @@
+<div class="dropdown-wrapper" aria-label="Default select example">
+  <div
+    class="dropdown-item d-flex justify-content-between"
+    *ngFor="let item of dropdownItems"
+    [class.category]="!item.value"
+    (click)="item.value ? handleOnDropdownItemClick(item.value) : null"
+  >
+    <span class="dropdown-item-label text-capitalize">{{
+      item.displayValue
+    }}</span
+    ><span class="dropdown-item-ratio fs-6">{{ item.ratio }}</span>
+  </div>
+</div>

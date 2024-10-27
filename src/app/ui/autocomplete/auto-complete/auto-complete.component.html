@@ -1,0 +1,13 @@
+<div class="autocomplete">
+  <app-input
+    [placeholder]="placeholder"
+    value=""
+    (onValueChange)="handleOnChange($event)"
+  ></app-input>
+  <app-dropdown
+    [hidden]="!showSearches"
+    [dropdownItems]="suggestions"
+    [renderOption]="renderOption"
+    (selectSuggestionEvent)="handleOnSelectSuggestion($event)"
+  ></app-dropdown>
+</div>

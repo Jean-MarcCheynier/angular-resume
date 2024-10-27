@@ -1,0 +1,24 @@
+@import "styles/custom-variables.scss";
+
+.dropdown-wrapper {
+  position: relative;;
+  width: 100%;
+  border-radius: 0px 0px 4px 4px;
+
+
+  background-color: $light;
+  box-shadow: 0 0 8px 0 $primary;
+
+  .dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-bottom:1px solid $gray-200;
+    &:hover {
+      background-color: $primary;
+    }
+    &.category {
+      background-color: $gray-300;
+    }
+  }
+}

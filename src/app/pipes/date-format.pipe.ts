@@ -30,7 +30,6 @@ export class DateFormatPipe implements PipeTransform, OnDestroy {
     value: Date | string | number | undefined,
     dateFormat = 'MMMM uuuu'
   ): string {
-    console.log('ran');
     if (!value) return '';
 
     const currentLang = this.translate.currentLang;

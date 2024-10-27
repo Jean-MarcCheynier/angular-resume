@@ -6,6 +6,8 @@ import { DateFormatPipe } from '../pipes/date-format.pipe';
 
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ExperienceCardComponent } from './card/experience-card.component';
+import { Skill } from 'app/skill/skill.model';
+import { AutoCompleteComponent } from 'app/ui/autocomplete/auto-complete/auto-complete.component';
 
 @Component({
   imports: [
@@ -15,6 +17,7 @@ import { ExperienceCardComponent } from './card/experience-card.component';
     TranslateModule,
     DateFormatPipe,
     ExperienceCardComponent,
+    AutoCompleteComponent,
   ],
   providers: [],
   selector: 'app-experience',
@@ -26,6 +29,7 @@ import { ExperienceCardComponent } from './card/experience-card.component';
 })
 export class ExperienceComponent implements OnInit {
   experienceList: Experience[] = [];
+  skillList: Skill[] = [];
   displayLanguage = 'en';
 
   constructor(
@@ -41,7 +45,13 @@ export class ExperienceComponent implements OnInit {
     //console.log('onchange', this.translate.currentLang);
   }
 
+  renderOption = (value: Skill) => {
+    //console.log('render it');
+    return value.slug;
+  };
+
   fetchExperienceList() {
     this.experienceList = this.cvService.experienceList;
+    this.skillList = this.cvService.skillList;
   }
 }
