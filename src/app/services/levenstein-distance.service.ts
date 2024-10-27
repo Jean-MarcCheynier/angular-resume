@@ -92,7 +92,7 @@ export class LevensteinDistanceService {
       {} as LevensteinDistanceRatioResult<T>;
 
     for (const p of properties) {
-      console.log('Property', p);
+      //console.log('Property', p);
       const searchedValue = [];
 
       for (const v of values) {
@@ -102,7 +102,7 @@ export class LevensteinDistanceService {
         }
         const string = v[p];
         const ratio = this.levensteinDistanceRatio(search, string);
-        console.log(`Match ${v[p]} with ratio ${ratio}`);
+        //console.log(`Match ${v[p]} with ratio ${ratio}`);
         if (ratio > 0.3) {
           searchedValue.push({ ratio, value: v });
         }

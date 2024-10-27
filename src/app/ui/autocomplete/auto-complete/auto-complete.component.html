@@ -1,13 +1,9 @@
 <div class="autocomplete">
-  <input
-    id="search"
-    #searchInput
-    class="form-control"
-    type="string"
+  <app-input
     [placeholder]="placeholder"
-    [(ngModel)]="searchTerm"
-    autocomplete="off"
-  />
+    value=""
+    (onValueChange)="handleOnChange($event)"
+  ></app-input>
   <app-dropdown
     [hidden]="!showSearches"
     [dropdownItems]="suggestions"

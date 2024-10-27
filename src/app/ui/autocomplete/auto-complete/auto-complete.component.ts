@@ -1,25 +1,11 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import { InputComponent } from '../input/input.component';
 import {
   LevensteinDistanceRatioResult,
   LevensteinDistanceService,
 } from 'app/services/levenstein-distance.service';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  fromEvent,
-  map,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
+
 import { FormsModule } from '@angular/forms';
 
 export interface Suggestion<T> {
@@ -38,8 +24,7 @@ export interface Suggestion<T> {
 export class AutoCompleteComponent<
   T extends Record<P, string>,
   P extends keyof T
-> implements AfterViewInit
-{
+> {
   @ViewChild('searchInput') searchInput!: ElementRef;
 
   @Input() placeholder = 'Placeholder';
@@ -50,51 +35,32 @@ export class AutoCompleteComponent<
   @Input() renderOption: (value: T) => string = (value) =>
     value[this.searchProperties[0]];
 
-  searchTerm = '';
-
+  searchTerm = this.value ? this.value[this.searchProperties[0]] : '';
   isSearching = false;
   showSearches = false;
   suggestions: Suggestion<T>[] = [];
 
   constructor(private levensteinDistanceService: LevensteinDistanceService) {}
 
-  ngAfterViewInit() {
-    this.search();
-  }
-
-  search() {
+  handleOnChange(term: string) {
     // Adding keyup Event Listerner on input field
-    const search$ = fromEvent<KeyboardEvent>(
-      this.searchInput.nativeElement,
-      'keyup'
-    ).pipe(
-      map((event) => (event.target as HTMLInputElement).value),
-      debounceTime(500),
-      distinctUntilChanged(),
-      tap(() => (this.isSearching = true)),
-      switchMap((term) =>
-        term
-          ? of(
-              this.fromLevensteinDistanceRatioToSuggestions(
-                this.levensteinDistanceService.getLevensteinDistanceRatio(
-                  term,
-                  this.options,
-                  this.searchProperties
-                )
-              )
-            )
-          : of<Suggestion<T>[]>([])
-      ),
-      tap(() => {
-        this.isSearching = false;
-        this.showSearches = true;
-      })
-    );
 
-    search$.subscribe((data) => {
-      this.isSearching = false;
-      this.suggestions = data;
-    });
+    this.isSearching = true;
+    if (!term) {
+      this.suggestions = [];
+      return;
+    }
+
+    this.suggestions = this.fromLevensteinDistanceRatioToSuggestions(
+      this.levensteinDistanceService.getLevensteinDistanceRatio(
+        term,
+        this.options,
+        this.searchProperties
+      )
+    );
+    if (this.suggestions.length > 0) {
+      this.showSearches = true;
+    }
   }
 
   fromLevensteinDistanceRatioToSuggestions<T extends Record<P, string>>(
@@ -115,7 +81,7 @@ export class AutoCompleteComponent<
   }
 
   handleOnSelectSuggestion = (suggestion: T | null) => {
-    this.value = suggestion;
+    //this.value = suggestion;
     this.searchTerm = this.renderOption(suggestion as T);
     this.showSearches = false;
   };

@@ -1,5 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  Subject,
+  Subscription,
+} from 'rxjs';
 
 @Component({
   imports: [FormsModule],
@@ -13,16 +19,28 @@ export class InputComponent {
   value: string = '';
   @Input()
   placeholder = '';
-  @Input()
-  onChange?: (value: string) => void;
+  @Output()
+  onValueChange = new EventEmitter<string>();
 
-  handleInputChange(newValue: string) {
-    this.value = newValue;
-    console.log('Input value changed:', newValue);
-    this.onChange?.(newValue);
+  searchNotifier$ = new Subject<string>();
+  subscription?: Subscription;
+
+  ngOnInit() {
+    this.subscription = this.searchNotifier$
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((data) => this.onValueChange.emit(data));
   }
-  onEnter = () => {};
 
-  onArrowDown = () => {};
-  onArrowUp = () => {};
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
+  }
+
+  getValue(event: Event): string {
+    event.preventDefault();
+    return (event.target as HTMLInputElement).value;
+  }
+
+  handleValueChange(newValue: string) {
+    this.searchNotifier$.next(newValue);
+  }
 }

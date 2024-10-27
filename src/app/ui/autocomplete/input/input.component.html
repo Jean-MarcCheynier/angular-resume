@@ -1,9 +1,10 @@
 <input
+  id="search"
   #searchInput
   class="form-control"
   type="string"
   [placeholder]="placeholder"
-  [ngModel]="value"
-  (ngModelChange)="handleInputChange($event)"
+  [(ngModel)]="value"
+  (keyup)="handleValueChange(getValue($event))"
   autocomplete="off"
 />
